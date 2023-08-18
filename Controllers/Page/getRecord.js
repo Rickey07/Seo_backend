@@ -21,35 +21,17 @@ exports.newPage = async (req, res) => {
 
   const REPO_OWNER = "ControlShiftDev"
   const REPO_NAME = "NewControlshiftWeb"
-  const PAT = "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"
+  const PAT = "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"
   const FILE_PATH = "Frontend/public/index.html"
 
   try {
     const {title,description,twitter_desc,twitter_title} = req.body
 
-    // Step 1: Get the latest commit from the master branch
-    const latestCommitResponse = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/main`, {
-      headers: {
-        Authorization: `Bearer ${PAT}`,
-      },
-    });
-
-
-    const latestCommitSha = latestCommitResponse.data.object.sha;
-
-    const latestCommitDetailsResponse = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${latestCommitSha}`, {
-      headers: {
-        Authorization: `Bearer ${PAT}`,
-      },
-    });
-
-    const treeSha = latestCommitDetailsResponse.data.tree.sha;
-
     // Get the File From Github
       const response = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
       headers: {
-        Authorization: `Bearer ${PAT}`,
-      },
+        Authorization: `Bearer ${PAT}`
+      }
     });
 
     const fileData = response.data;
@@ -97,34 +79,12 @@ exports.newPage = async (req, res) => {
     return ResponseHandler(res,true,200,"Successfully updated Please wait 5 minutes for deployment",req.body)
   }
 
-
-    // const refResponse = await axios.post(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/commits`, {
-    //   message: 'Update HTML content via CMS',
-    //   parents: [latestCommitSha],
-    //   tree: treeSha,
-
-    // }, {
-    //   headers: {
-    //     Authorization: `Bearer ${PAT}`,
-    //   },
-    // });
-
-    // console.log(refResponse?.data,"Prabs")
-
-    // const masterPushResponse =  await axios.patch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/master`, {
-    //   sha: updateResponse.data.sha,
-    // }, {
-    //   headers: {
-    //     Authorization: `Bearer ${PAT}`,
-    //   },
-    // });
-
-    // console.log(masterPushResponse,"Hello Code")
-
   } catch (error) {
     return ResponseHandler(res,false,400,"Unknown Error Occured While Updating Data Please contact tech team ",error)
   }
 
+
+  // If later want to maintain blog -- comment the below code
 
   // try {
   //   const body = req.body;
