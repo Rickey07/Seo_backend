@@ -19,10 +19,10 @@ exports.getPage = async (req, res) => {
 
 exports.newPage = async (req, res) => {
 
-  const REPO_OWNER = "ControlShiftDev"
-  const REPO_NAME = "NewControlshiftWeb"
-  const PAT = "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"
-  const FILE_PATH = "Frontend/public/index.html"
+  const REPO_OWNER = process.env.REPO_OWNER
+  const REPO_NAME = process.env.REPO_NAME
+  const PAT = process.env.PAT
+  const FILE_PATH = process.env.FILE_PATH
 
   try {
     const {title,description,twitter_desc,twitter_title} = req.body
