@@ -21,7 +21,7 @@ exports.newPage = async (req, res) => {
 
   const REPO_OWNER = "ControlShiftDev"
   const REPO_NAME = "NewControlshiftWeb"
-  const PAT = "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"
+  const PAT = "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"
   const FILE_PATH = "Frontend/public/index.html"
 
   try {
